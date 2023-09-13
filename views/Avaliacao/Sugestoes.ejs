@@ -4,16 +4,16 @@
     <%- include('../head'); %>
 </head>
 
-<body>
+<body style="background-color: rgb(247, 247, 247);">
     <header>
         <%- include('../Navegacao/navegacao'); %>
     </header>
 
-    <div class="row mt-5">
-        <div class="col-lg-7" style="margin-left: 8%;">
+    <div class="row mt-5" style="max-width: 100%; max-height: 100%;">
+        <div class="col-lg-7" style="margin-left: 8%; height: 100%;">
             <h2 id="tituloSugerir" class="mb-5">Sugestões</h2>
             <% dadosAvaliacoes.slice(-8).reverse().forEach(function(avaliacao) { %>
-                <div id="avaliacaoUser" class="mb-4">
+                <div id="avaliacaoUser" class="mb-4 border">
                     <p id="areaDaSugestao">
                         Área: <%=avaliacao.area%>
                     </p>
@@ -27,13 +27,12 @@
         </div>
 
 
-        <div class="col-lg-2" style="margin-left: 5%;">
+        <div class="col-lg-2" style="margin-left: 5%; height: 100%;">
             <div id="caixaDirSug">
                 <h3 id="tituloAvaliacao">Avaliações</h3>
                 <% mediaAvaliacoesPorArea.forEach(function(valor) { %>
                 <div>
-                    <p id="areaDaAvaliacao"><%=valor.area%></p>
-                    <p id="conteudoAvaliacao"><%=parseInt(valor.media_estrelas)%></p>
+                    <p id="areaDaAvaliacao"><%=valor.area%>: <%=parseInt(valor.media_estrelas)%></p>
                     <hr class="linhaAvaliacoes">
                 </div>
                 <%})%>

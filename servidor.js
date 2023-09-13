@@ -658,6 +658,7 @@ app.get("/exibirAvaliacoes", function (req, res) {
                 var fotoUserLogado = req.session.foto;
                 var nivel = req.session.nivelUs;
                 const sql2 = "SELECT * FROM usuarios WHERE idUsuario=?";
+                var sqlAreas = "SELECT * FROM areas"
                 const userId = parseInt(req.session.usId);
 
                 con.query(sql2, [id], function (err, result, fields) {
@@ -668,7 +669,12 @@ app.get("/exibirAvaliacoes", function (req, res) {
                     con.query(sql3, function (err, result) {
                         if (err) throw err;
                         const dadosAvaliacoes = result;
-                        res.render('Avaliacao/Sugestoes.ejs', { dadosUsuario, id: userId, dadosAvaliacoes, mediaAvaliacoesPorArea, fotoUserLogado, nivel });
+                        con.query(sqlAreas, function(err, resultados){
+                            if (err) throw err;
+                            var areas = resultados;
+                            console.log(areas);
+                            res.render('Avaliacao/Sugestoes.ejs', {areas, dadosUsuario, id: userId, dadosAvaliacoes, mediaAvaliacoesPorArea, fotoUserLogado, nivel });
+                        }); 
                     });
                 });
             });
