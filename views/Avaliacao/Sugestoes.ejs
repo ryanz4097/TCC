@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<head>
+    <%- include('../head'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../Navegacao/navegacao'); %>
+    </header>
+
+    <div class="row mt-5">
+        <div class="col-lg-7" style="margin-left: 8%;">
+            <h2 id="tituloSugerir" class="mb-5">Sugestões</h2>
+            <% dadosAvaliacoes.slice(-8).reverse().forEach(function(avaliacao) { %>
+                <div id="avaliacaoUser" class="mb-4">
+                    <p id="areaDaSugestao">
+                        Área: <%=avaliacao.area%>
+                    </p>
+                    <p>Nota: <%=avaliacao.estrelas%></p>
+                    <p id="parteSugestao">
+                        Comentário: <%=avaliacao.mensagem%>
+                    </p>
+                </div>
+                <hr style="width: 100%;" class="mb-4">
+                <%})%>
+        </div>
+
+
+        <div class="col-lg-2" style="margin-left: 5%;">
+            <div id="caixaDirSug">
+                <h3 id="tituloAvaliacao">Avaliações</h3>
+                <% mediaAvaliacoesPorArea.forEach(function(valor) { %>
+                <div>
+                    <p id="areaDaAvaliacao"><%=valor.area%></p>
+                    <p id="conteudoAvaliacao"><%=parseInt(valor.media_estrelas)%></p>
+                    <hr class="linhaAvaliacoes">
+                </div>
+                <%})%>
+            </div>
+        </div>
+    </div>
+</body>

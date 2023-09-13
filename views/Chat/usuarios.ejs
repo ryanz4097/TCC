@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Listagem de Usuários</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <%- include('../head'); %>
+
+
+</head>
+
+<body>
+    <%- include('../Navegacao/navegacao'); %>
+        <div class="container mt-5 mb-5">
+            <h1 class="text-center">Listagem de Usuários</h1>
+
+        </div>
+        <div class="container">
+            <br>
+            <h2>Listagem dos usuários cadastrados</h2>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Foto Perfil</th>
+                        <th>Enviar Mensagem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%if (nivel == 1) {%>
+                        <% dadosUsuarios.forEach(function(dados) { %>
+                            <% if(dados.nivel !=1 ){ %>
+                                <tr>
+                                    <td>
+                                        <%= dados['nome'] %>
+                                    </td>
+                                    <td>
+                                        <img src="/imagens/<%= dados['fotoPerfil'] %>"
+                                            style="width: 45px; height: 45px; border-radius:50%; object-fit: cover;">
+                                    </td>
+                                    <td>
+                                        <form method='POST' action='/chat'>
+                                            <input type='hidden' name='id' value="<%=dados['idUsuario']%>">
+                                            <button type='submit' style="border: 0px; background:none;">
+                                                <i class="fa-regular fa-comments fa-xl"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <%console.log(dados)%>
+                                    <% } %>
+                                        <% }); %>
+                                            <% } %>
+                    <%if (nivel !=1) {%>
+                        <% dadosUsuarios.forEach(function(dados) { %>
+                            <% if(dados.nivel==1){ %>
+                                <tr>
+                                    <td>
+                                        <%= dados['nome'] %>
+                                    </td>
+                                    <td>
+                                        <img src="/imagens/<%= dados['fotoPerfil'] %>"
+                                            style="width: 45px; height: 45px; border-radius:50%; object-fit: cover;">
+                                    </td>
+                                    <td>
+                                        <form method='POST' action='/chat'>
+                                            <input type='hidden' name='id' value="<%=dados['idUsuario']%>">
+                                            <button type='submit' style="border: 0px; background:none;">
+                                                <i class="fa-regular fa-comments fa-xl"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <%console.log(dados)%>
+                                    <% } %>
+                                        <% }); %>
+                                            <% } %>
+                </tbody>
+            </table>
+            <div class="container">
+            </div>
+        </div>
+
+</body>
+
+</html>

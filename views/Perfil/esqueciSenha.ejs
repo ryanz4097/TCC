@@ -1,0 +1,47 @@
+<head>
+    <%- include('../head'); %>
+</head>
+
+<body style="background-color: rgb(238, 238, 238);">
+    <%- include('../Navegacao/navegacao'); %>
+        <div class="row" style=" max-width: 100%;">
+            <div class="col-lg-12">
+                <div id="esqueciSenhaDiv">
+                    <h2 style="text-align: center;">Mudar Senha</h2>
+                    <hr>
+                    <form action="/redefinirSenha/<%=dadosUsuario.idUsuario%>" method="post" enctype="multipart/form-data">
+                        <label for="senhaUsu" class="mt-4">Senha atual:</label>
+                        <input type="password" name="senhaUsu" class="border contato2" placeholder="Digite sua senha atual" maxlength="30">
+
+                        <script>
+                            const senhaUsu = document.getElementById('senhaUsu');
+    
+                            senhaUsu.addEventListener('input', function () {
+                                const limiteCaracteres = parseInt(senhaUsu.getAttribute('maxlength'));
+                                const textoDigitado = senhaUsu.value;
+    
+                                if (textoDigitado.length > limiteCaracteres) {
+                                    senhaUsu.value = textoDigitado.slice(0, limiteCaracteres);
+                                }
+                            });
+                        </script>
+
+                        <label for="senhaUsuNova" class="mt-4">Nova senha:</label>
+                        <input type="password" name="senhaUsuNova" class="border contato2"
+                            placeholder="Digite sua nova senha">
+                        <% if(mensagem !="1" ) {%>
+                            <div style="display: flex;">
+                                <i class="mt-1 mr-2 fa-solid fa-triangle-exclamation" style="color: red;"></i>
+                                <p style="color: red;">
+
+                                    <%=mensagem%>
+
+                                </p>
+                            </div>
+                            <%}%>
+                                <button type="submit" class="mt-4 mb-3 btn btn-primary">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+</body>

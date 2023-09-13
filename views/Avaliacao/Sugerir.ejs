@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<head>
+    <%- include('../head'); %>
+</head>
+
+<body>
+    <header>
+        <%- include('../Navegacao/navegacao'); %>
+    </header>
+
+    <div class="container mt-5" id="principal">
+
+        <h2 id="tituloSugerir">Faça sua avaliação!</h2>
+        <br>
+        <p id="subTituloSugerir">Envie sua avaliação e recomendação sobre determinadas áreas do campus, assim dando a
+            nós uma noção da opinião
+            dos estudantes sobre o instituto.</p>
+
+        <form action="/adicionar" method="POST" enctype="multipart/form-data">
+
+            <label class="labelSug" for="usr">Área de Sugestão</label>
+            <div class="form-group">
+                <select class="form-control" aria-label="Default select example" name="area" required>
+                    <%dadosAreas.slice(-8).reverse().forEach(function(areaEnviada) { %>
+                        <option value="<%=areaEnviada.idArea%>"><%=areaEnviada.area%></option>
+                        <%})%>
+                </select>
+            </div>
+
+            <div class="ml-0 avaliacao">
+                <input type="radio" data-avaliacao="1" name="estrela" id="opcao1" value="1" checked>
+                <label class="star-icon ativo" for="opcao1"></label>
+
+                <input type="radio" data-avaliacao="1" name="estrela" id="opcao2" value="2">
+                <label class="star-icon ativo" for="opcao2"></label>
+
+                <input type="radio" data-avaliacao="1" name="estrela" id="opcao3" value="3">
+                <label class="star-icon ativo" for="opcao3"></label>
+
+                <input type="radio" data-avaliacao="1" name="estrela" id="opcao4" value="4">
+                <label class="star-icon ativo" for="opcao4"></label>
+
+                <input type="radio" data-avaliacao="1" name="estrela" id="opcao5" value="5">
+                <label class="star-icon ativo" for="opcao5"></label>
+            </div>
+            <script>
+                var stars = document.querySelectorAll('.star-icon');
+
+                document.addEventListener('click', function (e) {
+                    var classStar = e.target.classList;
+                    if (!classStar.contains('ativo')) {
+                        stars.forEach(function (star) {
+                            star.classList.remove('ativo');
+                        });
+                        classStar.add('ativo');
+                        console.log(e.target.dataset.avaliacao);
+                    }
+                });
+
+            </script>
+
+            <label for="usr" class="labelSug">Mensagem:</label>
+            <textarea class="mb-3 form-control" name="mensagem" rows="3"></textarea>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<head>
+    <%- include('../head'); %>
+        <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/all.min.css">
+
+        <%- include('../Navegacao/navegacao'); %>
+</head>
+
+<body class="paginaLogada">
+    <div class="row pt-4" id="row1-noticias">
+        <div class="col-lg-12 ml-5">
+            <br>
+            <a href="criarNoticia">
+                <i class="fa-solid fa-plus"></i>
+                <p style="display: inline-block; font-size: 20px;">Criar nova postagem</p>
+            </a>
+            <div>
+                <hr class="mb-4 mt-4" width="900px" style="margin-left: 0px;">
+            </div>
+            <% dadosNoticia.slice(-8).reverse().forEach(function(noticia) { %>
+                <a href="/verNoticia/<%= noticia.idNoticia %>" id="clicarNoticias">
+                    <div class="row">
+
+                        <div class="col-lg-3">
+                            <img class="imagensColunaEsq" src="imagens/<%= noticia.imagensNoticia %>"
+                                style="width: 350px; object-fit: cover; height: 200px; border-radius: 5%;">
+                        </div>
+                        <div class="col-lg-4">
+                            <div id="textoNoticia-row1">
+                                <h3 class="tituloNoticia">
+                                    <%= noticia.tituloNoticia %>
+                                </h3>
+                                <p class="textoColunaEsquerda">
+                                    <%= noticia.resumoNoticia %>
+                                </p>
+                                <p class="dataHora">
+                                    <%=noticia.dataHora%>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <div>
+                    <hr class="mb-4 mt-4" width="900px" style="margin-left: 0px;">
+                </div>
+                <% }) %>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 pt-1 w-5" id="row2-noticias" style="position: fixed; width: 8000px;">
+            <div id="row2-background" class="border">
+                <h5 style="font-size: 18px;font-family: Arial, Helvetica, sans-serif;">Novidades</h5>
+                <hr class="hr-direita">
+
+                <% dadosNoticia.slice(-5).forEach(function(noticia) { %>
+
+                    <div style="display: flex;">
+                        <p class="textoColunaDireita">
+                            <%=noticia.tituloNoticia%>
+                        </p>
+                        <p class="textoColunaDireita" id="dataHoraColDireita">
+                            <%=noticia.dataHora%>
+                        </p>
+                        <img src="imagens/<%=noticia.imagensNoticia%>" style="
+                        display: inline-block;
+                        width: 80px;
+                        object-fit: cover;
+                        height: 80px;
+                        border-radius: 5%;
+                        border: black solid 1px;
+                        margin-left:8%">
+                    </div>
+                    <hr class="hr-direita">
+
+                    <% }) %>
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,152 @@
+<head>
+    <%- include('../head'); %>
+        <link rel="stylesheet" type="text/css" href="fonts/fontawesome/css/all.min.css">
+</head>
+
+<body>
+
+    <%- include('../Navegacao/navegacao') %>
+        <div class="row" style="max-width: 100%;">
+            <div class="col-lg-9">
+                <div class="textoNoticia" style="max-width: 80%;">
+                    <div class="row">
+                        <div class="mt-3 col-10">
+                            <h2 class="mb-3 mt-3" id="tituloNoticiaTemplate">
+                                <%=dadosEnviados.tituloNoticia%>
+
+                            </h2>
+                        </div>
+                        <%if (dadosUsuario.nivel==1 ) {%>
+                            <div class="mt-3 col-2" style="display: block;">
+                                <a href="/apagarNoticia/<%=dadosEnviados.idNoticia%>">
+                                    <i class="mt-5 mr-3 fa-solid fa-trash-can fa-xl"></i>
+                                </a>
+                                <a href="/editarNoticia/<%=dadosEnviados.idNoticia%>">
+                                    <i class=" fa-solid fa-pen-to-square fa-xl"></i>
+                                </a>
+                            </div>
+                            <%}%>
+                    </div>
+                    <hr style="max-width: 100%; margin-left: 0px;">
+                    <p id="resumoNTemplate">
+                        <%=dadosEnviados.resumoNoticia%>
+                    </p>
+                    <p id="horaNTemplate">
+                        <% const dataHoraFormatada=new Date(dadosEnviados.dataHora); const options={ year: 'numeric' ,
+                            month: 'long' , day: 'numeric' , hour: 'numeric' , minute: 'numeric' , second: 'numeric' ,
+                            timeZoneName: 'short' }; const
+                            dataHoraFormatadaString=dataHoraFormatada.toLocaleDateString('pt-BR', options); %>
+                            <%= dataHoraFormatadaString %>
+                    </p>
+                    <img class="border" id="imagemTemplate" src="/imagens/<%=dadosEnviados.imagensNoticia%>">
+                    <p style="font-size: 12px; word-break: break-all;">
+                        <%=dadosEnviados.resumoImagem%>
+                    </p>
+                    <hr style="max-width: 100%; margin-left: 0px;">
+                    <p id="textoNoticia">
+                        <%- dadosEnviados.textoNoticia.replace(/\n/g, '<br>' ) %>
+                    </p>
+                    <hr class="mt-5 mb-5">
+                </div>
+
+                <div class="finalPagina" style="max-width: 50%;">
+                    <div class="comentarios" style="max-width: 100%;">
+                        <h5>Comentários</h5>
+                        <br>
+
+                        <div id="areaComentarioUsu" class="mb-5">
+                            <form action="/enviarComentario" method="POST">
+                                <input type="hidden" name="idNoticia" value="<%=dadosEnviados.idNoticia%>">
+                                <textarea class="border" id="comentarioUsu" cols="100%"
+                                    placeholder="Escreva seu comentário" name="comentario" maxlength="500"></textarea>
+
+                                <script>
+                                    const comentario = document.getElementById('comentario');
+
+                                    comentario.addEventListener('input', function () {
+                                        const limiteCaracteres = parseInt(comentario.getAttribute('maxlength'));
+                                        const textoDigitado = comentario.value;
+
+                                        if (textoDigitado.length > limiteCaracteres) {
+                                            comentario.value = textoDigitado.slice(0, limiteCaracteres);
+                                        }
+                                    });
+                                </script>
+
+                                <button type="submit" class="mt-2 btn btn-primary">Comentar</button>
+                            </form>
+                        </div>
+
+                        <%dadosComentarios.forEach(function(comentarios) { %>
+
+                            <div class="comentarioSeparado">
+                                <a href="/perfilComentario/<%= comentarios.usuario %>">
+                                    <img src="/imagens/<%=comentarios.fotoPerfil%>" class="imagemComentario">
+                                </a>
+                                <div class="infoComentario ml-2">
+                                    <p class="nomeComentario">
+                                        <%=comentarios.nome%>
+                                    </p>
+                                    <p>
+                                        <%=comentarios.classificacao%>
+                                    </p>
+                                    <p id="comentarioNoTemplate">
+                                        <%=comentarios.comentario%>
+                                    </p>
+                                </div>
+                            </div>
+                            <hr style="max-width: 100%; margin-left: 0px;">
+
+                            <% }) %>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 mt-5">
+                <% if (nivel==2) { %>
+                    <div class="border"
+                        style="border-color: rgb(0, 29, 58);background-color: rgb(245, 245, 245); position:fixed; padding: 1%; width: 20%; border-radius: 10px;">
+                        <div style="max-width: 100%;">
+
+                            <br>
+                            <h5 class="mb-4">Solicitação de revisão</h5>
+                            <%if (dadosEnviados.revisao==2) {%>
+                                <p style="font-weight: bold; color: red;">Esta noticia já teve sua revisão solicitada
+                                </p>
+                                <hr>
+                                <%}%>
+                                    <form action="/revisao/<%=dadosEnviados.idNoticia%>" method="post"
+                                        enctype="multipart/form-data">
+                                        <textarea name="textoRevisao" width="25%" class="mb-4 form-control"
+                                            placeholder="Escreva o que deve ser revisado"
+                                            rows="4"><%=dadosEnviados.textoRevisao%></textarea>
+                                        <button class="botaoRevisao mb-5 btn btn-warning"
+                                            data-idnoticia="<%= dadosEnviados.idNoticia %>">Solicitar Revisão</button>
+                                    </form>
+
+                        </div>
+                    </div>
+                    <%}%>
+                        <%if (nivel==1) {%>
+                            <%if (dadosEnviados.revisao==2) {%>
+                                <div class="border"
+                                    style="border-color: rgb(0, 29, 58);background-color: rgb(245, 245, 245); position:fixed; padding: 1%; width: 20%; border-radius: 10px;">
+                                    <div style="max-width: 100%;">
+                                        <br>
+                                        <h5
+                                            style="margin-bottom: 35px; font-size: 25px;text-align: center; color: red; font-weight: bold; padding: 3px; text-decoration: underline;">
+                                            Revisão solicitada</h5>
+                                        <label class="mb-4" for="mensagemDeRevisao"><b>Descrição:</b> </label>
+                                        <textarea class="form-control" id="mensagemDeRevisao"
+                                            disabled><%=dadosEnviados.textoRevisao%></textarea>
+                                        <form action="/finalizarRevisao/<%=dadosEnviados.idNoticia%>" method="post"
+                                            enctype="multipart/form-data">
+                                            <button class="mt-4 btn btn-danger">Finalizar Revisão</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <%}%>
+                                    <%}%>
+            </div>
+        </div>
+</body>

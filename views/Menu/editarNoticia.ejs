@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('../head'); %>
+        <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/all.min.css">
+        <script src="https://cdn.tiny.cloud/1/psl3uiahw6frymrun6s1hqtohm9q01xbuzw9eg43ilclop9s/tinymce/5/tinymce.min.js"
+            referrerpolicy="origin"></script>
+        <link rel="stylesheet"
+            href="https://cdn.tiny.cloud/1/psl3uiahw6frymrun6s1hqtohm9q01xbuzw9eg43ilclop9s/tinymce/5/skins/ui/oxide/skin.min.css">
+        <link rel="stylesheet"
+            href="https://cdn.tiny.cloud/1/psl3uiahw6frymrun6s1hqtohm9q01xbuzw9eg43ilclop9s/tinymce/5/skins/ui/oxide/content.min.css">
+</head>
+
+<body>
+    <%- include('../Navegacao/navegacao'); %>
+        <div class="row" style="max-width: 100%;">
+            <div class="col-lg-12">
+                <div class="textoNoticia">
+
+                    <form action="/enviarEdicaoNot/<%=dadosNoticia.idNoticia%>" method="post"
+                        enctype="multipart/form-data">
+
+                        <input class="border" type="text" placeholder="Titulo da Noticia" name="tituloNotInput"
+                            id="tituloPosNot" value="<%= dadosNoticia.tituloNoticia %>" maxlength="100">
+
+                        <script>
+                            const tituloNotInput = document.getElementById('tituloNotInput');
+
+                            tituloNotInput.addEventListener('input', function () {
+                                const limiteCaracteres = parseInt(tituloNotInput.getAttribute('maxlength'));
+                                const tituloNotInput = textarea1.value;
+
+                                if (tituloNotInput.length > limiteCaracteres) {
+                                    textarea1.value = tituloNotInput.slice(0, limiteCaracteres); // Corta o texto para ajustá-lo ao limite
+                                }
+                            });
+                        </script>
+
+                        <hr style="max-width: 1000px; margin-left: 0px;">
+                        <textarea class="border mb-3" name="resumoNotInput" id="resumoImgInput" cols="120" rows="5"
+                            placeholder="Resumo da Notícia"
+                            maxlength="204"><%= dadosNoticia.resumoNoticia %></textarea><br>
+
+                        <script>
+                            const textarea1 = document.getElementById('resumoPosNot');
+
+                            textarea1.addEventListener('input', function () {
+                                const limiteCaracteres = parseInt(textarea1.getAttribute('maxlength'));
+                                const textoDigitado = textarea1.value;
+
+                                if (textoDigitado.length > limiteCaracteres) {
+                                    textarea1.value = textoDigitado.slice(0, limiteCaracteres); // Corta o texto para ajustá-lo ao limite
+                                }
+                            });
+                        </script>
+
+                        <input type="file" class="border" name="imagem" value="<%= dadosNoticia.imagensNoticia %>"><br>
+                        <input type="text" class="border mt-3" placeholder="Resumo da Imagem" id="resumoImagemPosNot"
+                            name="resumoImgInput" value="<%= dadosNoticia.resumoImagem %>">
+                        <hr style="max-width: 1000px; margin-left: 0px;">
+
+                        <textarea class="border" placeholder="Escreva a notícia" id="conteudoPosNot"
+                            name="conteudoPosNot"><%- dadosNoticia.textoNoticia.replace(/<br>/g, '')  %></textarea>
+
+                        <script>
+                            tinymce.init({
+                                selector: '#conteudoPosNot',
+                                toolbar: ' formatselect | bold italic underline| alignleft aligncenter alignright alignjustify', height: 400, menubar: false,
+                            });
+                        </script>
+                        <script>
+                            const textarea = document.getElementById('conteudoPosNot');
+
+                            textarea.addEventListener('input', function () {
+                                this.style.height = 'auto';
+                                this.style.height = this.scrollHeight + 'px';
+                                const texto = textarea.value;
+
+                                const linhas = texto.split('\n');
+
+                                const numQuebrasLinha = linhas.length - 1;
+
+                                console.log(`Número de quebras de linha: ${numQuebrasLinha}`);
+                            });
+
+                        </script>
+                        <br>
+                        <button type="submit" class="mt-3 mb-4 btn btn-primary"
+                            style="padding-left: 2rem; padding-right: 2rem;">Postar</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
