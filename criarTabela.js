@@ -18,8 +18,9 @@ con.connect(function (err) {
         const senha = "senhaAdmin123";
         bcrypt.hash(senha, saltRounds, function (err, hash) {
             var sqlInsertData = "INSERT INTO usuarios (nome, email, senha, nivel, classificacao) VALUES ?";
+            var adminC = "Administrador";
             var values = [
-                ['admin', 'admin@gmail.com', hash, 1, 'Administrador'],
+                ['admin', 'admin@gmail.com', hash, 1, adminC],
             ];
             con.query(sqlInsertData, [values], function (err, result) {
                 if (err) throw err;

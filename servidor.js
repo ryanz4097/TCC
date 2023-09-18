@@ -380,7 +380,6 @@ app.get('/verNoticia/:id', function (req, res) {
 
         const sql = "SELECT * FROM noticias WHERE idNoticia=?";
         const sql2 = "SELECT * FROM usuarios WHERE idUsuario=?";
-        const sql3 = "SELECT comentarios.*, usuarios.* FROM comentarios LEFT JOIN usuarios ON comentarios.usuario_id = usuarios.idUsuario WHERE noticia_id=?";
 
         con.query(sql, [idNoticia], function (err, result) {
             if (err) throw err;
@@ -392,7 +391,7 @@ app.get('/verNoticia/:id', function (req, res) {
                 const dadosUsuario = result[0];
 
                 const sql3 = `
-                    SELECT comentarios.*, usuarios.fotoPerfil, usuarios.nome
+                    SELECT comentarios.*, usuarios.fotoPerfil, usuarios.nome, usuarios.classificacao
                     FROM comentarios
                     JOIN usuarios ON comentarios.usuario = usuarios.idUsuario
                     WHERE comentarios.noticia_id = ?
@@ -812,14 +811,16 @@ app.post('/cadastrarNovoUs', function (req, res) {
                 bcrypt.hash(senha, saltRounds, function (err, hash) {
                     if (err) throw err;
                     if (fields['nivel'] == 1) {
-                        const values = [[fields['nome'], fields['email'], fields['nivel'], hash, "Administrador"]];
+                        var adminC = "Administrador"
+                        const values = [[fields['nome'], fields['email'], fields['nivel'], hash, adminC]];
                         con.query(sql2, [values], function (err, result) {
                             if (err) throw err;
                             console.log("Numero de registros inseridos: " + result.affectedRows);
                             res.redirect('/menu');
                         });
                     } else {
-                        const values = [[fields['nome'], fields['email'], fields['nivel'], hash, "Supervisor"]];
+                        var superV = "Supervisor"
+                        const values = [[fields['nome'], fields['email'], fields['nivel'], hash, superV]];
                         con.query(sql2, [values], function (err, result) {
                             if (err) throw err;
                             console.log("Numero de registros inseridos: " + result.affectedRows);
