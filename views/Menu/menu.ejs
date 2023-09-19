@@ -30,7 +30,7 @@
                                 dadosNoticia.slice(comecoIndex, finalIndex).reverse().forEach(function(noticias) { if
                                 (noticias.revisao==2) { %>
 
-                                <a class="dropdown-item" href="">
+                                <a class="dropdown-item" href="/verNoticia/<%=noticias.idNoticia%>">
                                     <%= noticias.tituloNoticia %>
                                 </a>
                                 <% } });%>

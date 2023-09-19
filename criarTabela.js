@@ -59,7 +59,7 @@ con.connect(function (err) {
         console.log("Tabela criada");
     });
 
-    sql2 = "CREATE TABLE chat (id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, enviou_id INT , mensagem VARCHAR(255),FOREIGN KEY (enviou_id) REFERENCES usuarios(idUsuario), recebeu_id INT, FOREIGN KEY (enviou_id) REFERENCES usuarios(idUsuario))";
+    sql2 = "CREATE TABLE chat (id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, enviou_id INT , mensagem VARCHAR(500),FOREIGN KEY (enviou_id) REFERENCES usuarios(idUsuario), recebeu_id INT, FOREIGN KEY (enviou_id) REFERENCES usuarios(idUsuario))";
     con.query(sql2, function (err, result) {
         if (err) throw err;
         console.log("Tabela chat criada");
