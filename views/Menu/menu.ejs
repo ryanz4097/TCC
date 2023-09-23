@@ -1,326 +1,336 @@
 <head>
     <%- include('../head'); %>
+        <title>Postagens</title>
 
-        <%- include('../Navegacao/navegacao'); %>
 </head>
 
 <body class="paginaLogada">
-    <div class="row pt-4" id="row1-noticias" style="width: 100%;">
-        <div class="col-lg-9">
+    <%- include('../Navegacao/navegacao'); %>
+        <div class="row pt-4" id="row1-noticias" style="width: 100%;">
+            <div class="col-lg-9">
 
-            <%if (nivel==1) {%>
-                <div class="row">
-                    <div class="col-11" id="admCriarNoticia" data-userid="<%=id%>">
-                        <br>
-                        <a href="criarNoticia">
-                            <i class="fa-solid fa-plus"></i>
-                            <p class="mt-4" style="display: inline-block; font-size: 20px;">Criar nova postagem</p>
-                        </a>
-                    </div>
-
-
-                    <div class="col-1 mt-5">
+                <%if (nivel==1) {%>
+                    <div class="row">
+                        <div class="col-11" id="admCriarNoticia" data-userid="<%=id%>">
+                            <br>
+                            <a href="criarNoticia">
+                                <i class="fa-solid fa-plus"></i>
+                                <p class="mt-4" style="display: inline-block; font-size: 20px;">Criar nova postagem</p>
+                            </a>
+                        </div>
 
 
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" style="margin-left: -25px;">
-                            <i class="fa-solid fa-bell fa-xl"></i>
-                        </a>
-                        <div class="dropdown-menu">
-                            <% var finalIndex=dadosNoticia.length; var comecoIndex=finalIndex - 5;
-                                dadosNoticia.slice(comecoIndex, finalIndex).reverse().forEach(function(noticias) { if
-                                (noticias.revisao==2) { %>
+                        <div class="col-1 mt-5">
 
-                                <a class="dropdown-item" href="/verNoticia/<%=noticias.idNoticia%>">
-                                    <%= noticias.tituloNoticia %>
-                                </a>
-                                <% } });%>
-                                    %>
+
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
+                                style="margin-left: -25px;">
+                                <i class="fa-solid fa-bell fa-xl"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <% var finalIndex=dadosNoticia.length; var comecoIndex=finalIndex - 5;
+                                    dadosNoticia.slice(comecoIndex, finalIndex).reverse().forEach(function(noticias) {
+                                    if (noticias.revisao==2) { %>
+
+                                    <a class="dropdown-item" href="/verNoticia/<%=noticias.idNoticia%>">
+                                        <%= noticias.tituloNoticia %>
+                                    </a>
+                                    <% } });%>
+                                        %>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <hr class="mb-4 mt-4" width="100%" style="margin-left: 0px;">
-                </div>
-                <%}%>
                     <div>
-                        <% if (dadosNoticia.length> 0) { %>
-                            <div style="max-width: 100%;">
-                                <a href="/verNoticia/<%= dadosNoticia[dadosNoticia.length - 1].idNoticia %>">
-                                    <div id="infoNoticiaGrande">
-                                        <h3 id="tituloNoticiaGrande">
-                                            <%=dadosNoticia[dadosNoticia.length - 1].tituloNoticia %>
-                                                <%if (nivel==1 ) { if (dadosNoticia[dadosNoticia.length -
-                                                    1].revisao==2){ %>
+                        <hr class="mb-4 mt-4" width="100%" style="margin-left: 0px;">
+                    </div>
+                    <%}%>
+                        <div>
+                            <% if (dadosNoticia.length> 0) { %>
+                                <div style="max-width: 100%;">
+                                    <a href="/verNoticia/<%= dadosNoticia[dadosNoticia.length - 1].idNoticia %>">
+                                        <div id="infoNoticiaGrande">
+                                            <h3 id="tituloNoticiaGrande">
+                                                <%=dadosNoticia[dadosNoticia.length - 1].tituloNoticia %>
+                                                    <%if (nivel==1 ) { if (dadosNoticia[dadosNoticia.length -
+                                                        1].revisao==2){ %>
 
-                                                    <i class="ml-2 fa-solid fa-triangle-exclamation"
-                                                        style="color: #f8b90d;"></i>
-                                                    <%}}%>
-                                        </h3>
-                                        <p style="word-break: break-all;">
-                                            <%=dadosNoticia[dadosNoticia.length - 1].resumoNoticia %>
-                                        </p>
-                                    </div>
-                                    <div class="imagemGrandeDiv">
-                                        <img src="imagens/<%= dadosNoticia[dadosNoticia.length - 1].imagensNoticia %>"
-                                            id="imagemNoticiaGrande">
-                                    </div>
-                                </a>
-                                <div class="mt-2" style="max-width: 100%;">
-                                    <a href="/apagarNoticia/<%=dadosNoticia[dadosNoticia.length - 1].idNoticia%>"
-                                        style="text-decoration: none;" id="lixeiraIconGrande" data-userid="<%=nivel%>">
-                                        <i class="mr-3 fa-solid fa-trash-can fa-xl"></i>
+                                                        <i class="ml-2 fa-solid fa-triangle-exclamation"
+                                                            style="color: #f8b90d;"></i>
+                                                        <%}}%>
+                                            </h3>
+                                            <p style="word-break: break-all;">
+                                                <%=dadosNoticia[dadosNoticia.length - 1].resumoNoticia %>
+                                            </p>
+                                        </div>
+                                        <div class="imagemGrandeDiv">
+                                            <img src="imagens/<%= dadosNoticia[dadosNoticia.length - 1].imagensNoticia %>"
+                                                id="imagemNoticiaGrande">
+                                        </div>
                                     </a>
-                                    <a href="/editarNoticia/<%=dadosNoticia[dadosNoticia.length - 1].idNoticia%>"
-                                        style="text-decoration: none;" id="editarIconGrande" data-userid="<%=nivel%>">
-                                        <i class="fa-solid fa-pen-to-square fa-xl"></i>
-                                    </a>
-                                    <script>
-                                        document.addEventListener('DOMContentLoaded', function () {
-                                            var lixeiraIconLink = document.getElementById('lixeiraIconGrande');
-                                            var editarIconLink = document.getElementById('editarIconGrande');
+                                    <div class="mt-2" style="max-width: 100%;">
+                                        <a href="/apagarNoticia/<%=dadosNoticia[dadosNoticia.length - 1].idNoticia%>"
+                                            style="text-decoration: none;" id="lixeiraIconGrande"
+                                            data-userid="<%=nivel%>">
+                                            <i class="mr-3 fa-solid fa-trash-can fa-xl"></i>
+                                        </a>
+                                        <a href="/editarNoticia/<%=dadosNoticia[dadosNoticia.length - 1].idNoticia%>"
+                                            style="text-decoration: none;" id="editarIconGrande"
+                                            data-userid="<%=nivel%>">
+                                            <i class="fa-solid fa-pen-to-square fa-xl"></i>
+                                        </a>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                var lixeiraIconLink = document.getElementById('lixeiraIconGrande');
+                                                var editarIconLink = document.getElementById('editarIconGrande');
 
-                                            // Acessa o valor do atributo data-userid
-                                            var userId = lixeiraIconLink.getAttribute('data-userid');
+                                                // Acessa o valor do atributo data-userid
+                                                var userId = lixeiraIconLink.getAttribute('data-userid');
 
-                                            if (userId !== "1") {
-                                                lixeiraIconLink.style.display = 'none';
-                                                editarIconLink.style.display = 'none';
-                                            }
-                                        });
-                                    </script>
+                                                if (userId !== "1") {
+                                                    lixeiraIconLink.style.display = 'none';
+                                                    editarIconLink.style.display = 'none';
+                                                }
+                                            });
+                                        </script>
+                                    </div>
+
+                                    <div>
+                                        <hr class="mt-4" width="100%" style="margin-left: 0px;">
+                                    </div>
                                 </div>
+                                <%}%>
+                                    <% if (dadosNoticia.length> 1) { %>
+                                        <div style="margin-top: 20px;">
+                                            <% var endIndex=dadosNoticia.length> 1 ? dadosNoticia.length - 1 :
+                                                dadosNoticia.length;
+                                                var inicioIndex= endIndex - 4;
+                                                while (inicioIndex < 0 ) { inicioIndex++; } %>
+                                                    <% dadosNoticia.slice(inicioIndex,
+                                                        endIndex).reverse().forEach(function(noticia, index) { %>
 
-                                <div>
-                                    <hr class="mt-4" width="100%" style="margin-left: 0px;">
-                                </div>
-                            </div>
-                            <%}%>
-                                <% if (dadosNoticia.length> 1) { %>
-                                    <div style="margin-top: 20px;">
-                                        <% var endIndex=dadosNoticia.length> 1 ? dadosNoticia.length - 1 :
-                                            dadosNoticia.length;
-                                            var inicioIndex= endIndex - 4;
-                                            while (inicioIndex < 0 ) { inicioIndex++; } %>
-                                                <% dadosNoticia.slice(inicioIndex,
-                                                    endIndex).reverse().forEach(function(noticia, index) { %>
-
-                                                    <div class="row" style="margin-left: 0px;">
-                                                        <div class="col-4" id="fotoLink" style="margin-left: -13px;">
-                                                            <a href="/verNoticia/<%= noticia.idNoticia %>"
-                                                                class="clicarNoticias">
-                                                                <div id="imagemNoticiaMenu">
-                                                                    <img class="imagensColunaEsq"
-                                                                        src="imagens/<%= noticia.imagensNoticia %>"
-                                                                        id="imagemNoticiaMenu2">
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-6" id="textoLink">
-                                                            <a href="/verNoticia/<%= noticia.idNoticia %>"
-                                                                class="clicarNoticias">
-                                                                <div class="col-lg-12">
-                                                                    <div id="textoNoticia-row1">
-                                                                        <h3 class="tituloNoticia">
-                                                                            <%= noticia.tituloNoticia %>
-                                                                                <%if (nivel==1 ) { if
-                                                                                    (noticia.revisao==2){ %>
-
-                                                                                    <i class="ml-2 fa-solid fa-triangle-exclamation"
-                                                                                        style="color: #f8b90d;"></i>
-                                                                                    <%}}%>
-                                                                        </h3>
-                                                                        <p class="textoColunaEsquerda">
-                                                                            <%= noticia.resumoNoticia %>
-                                                                        </p>
-                                                                        <p class="dataHora">
-                                                                            <% const dataHoraFormatada=new
-                                                                                Date(noticia.dataHora); const options={
-                                                                                year: 'numeric' , month: 'long' ,
-                                                                                day: 'numeric' , hour: 'numeric' ,
-                                                                                minute: 'numeric' , second: 'numeric' ,
-                                                                                timeZoneName: 'short' }; const
-                                                                                dataHoraFormatadaString=dataHoraFormatada.toLocaleDateString('pt-BR',
-                                                                                options); %>
-                                                                                <%= dataHoraFormatadaString %>
-                                                                        </p>
+                                                        <div class="row" style="margin-left: 0px;">
+                                                            <div class="col-4" id="fotoLink"
+                                                                style="margin-left: -13px;">
+                                                                <a href="/verNoticia/<%= noticia.idNoticia %>"
+                                                                    class="clicarNoticias">
+                                                                    <div id="imagemNoticiaMenu">
+                                                                        <img class="imagensColunaEsq"
+                                                                            src="imagens/<%= noticia.imagensNoticia %>"
+                                                                            id="imagemNoticiaMenu2">
                                                                     </div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-2"
-                                                            style="max-height: 100%; text-align: center;">
-                                                            <div style="position: relative; bottom: -80%;">
-                                                                <a href="/apagarNoticia/<%=noticia.idNoticia%>"
-                                                                    style="text-decoration: none;"
-                                                                    data-userid="<%=nivel%>" class="lixeiraIcon">
-                                                                    <i class="mr-3 fa-solid fa-trash-can fa-xl"></i>
-                                                                </a>
-                                                                <a href="/editarNoticia/<%=noticia.idNoticia%>"
-                                                                    style="text-decoration: none;"
-                                                                    data-userid="<%=nivel%>" class="editarIcon">
-                                                                    <i class="fa-solid fa-pen-to-square fa-xl"></i>
                                                                 </a>
                                                             </div>
-                                                        </div>
-                                                    </div>
+                                                            <div class="col-6" id="textoLink">
+                                                                <a href="/verNoticia/<%= noticia.idNoticia %>"
+                                                                    class="clicarNoticias">
+                                                                    <div class="col-lg-12">
+                                                                        <div id="textoNoticia-row1">
+                                                                            <h3 class="tituloNoticia">
+                                                                                <%= noticia.tituloNoticia %>
+                                                                                    <%if (nivel==1 ) { if
+                                                                                        (noticia.revisao==2){ %>
 
-                                                    <div>
-                                                        <hr class="mb-4 mt-4" width="100%" style="margin-left: 0px;">
-                                                    </div>
-                                                    <% }) %>
-
-
-
-
-                                                        <%if (dadosNoticia.length> 9) { %>
-                                                            <% dadosNoticia.slice(9,
-                                                            20).reverse().forEach(function(noticia, index) {
-                                                                %>
-                                                                <div class="row" style="margin-left: 0px;">
-                                                                    <div class="col-4" id="fotoLink"
-                                                                        style="margin-left: -13px;">
-                                                                        <a href="/verNoticia/<%= noticia.idNoticia %>"
-                                                                            class="clicarNoticias">
-                                                                            <div id="imagemNoticiaMenu">
-                                                                                <img class="imagensColunaEsq"
-                                                                                    src="imagens/<%= noticia.imagensNoticia %>"
-                                                                                    id="imagemNoticiaMenu2">
-                                                                            </div>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="col-6" id="textoLink">
-                                                                        <a href="/verNoticia/<%= noticia.idNoticia %>"
-                                                                            class="clicarNoticias">
-                                                                            <div class="col-lg-12">
-                                                                                <div id="textoNoticia-row1">
-                                                                                    <h3 class="tituloNoticia">
-                                                                                        <%= noticia.tituloNoticia %>
-                                                                                            <%if (nivel==1 ) { if
-                                                                                                (noticia.revisao==2){ %>
-
-                                                                                                <i class="ml-2 fa-solid fa-triangle-exclamation"
-                                                                                                    style="color: #f8b90d;"></i>
-                                                                                                <%}}%>
-                                                                                    </h3>
-                                                                                    <p class="textoColunaEsquerda">
-                                                                                        <%= noticia.resumoNoticia %>
-                                                                                    </p>
-                                                                                    <p class="dataHora">
-                                                                                        <% const dataHoraFormatada=new
-                                                                                            Date(noticia.dataHora);
-                                                                                            const options={
-                                                                                            year: 'numeric' ,
-                                                                                            month: 'long' ,
-                                                                                            day: 'numeric' ,
-                                                                                            hour: 'numeric' ,
-                                                                                            minute: 'numeric' ,
-                                                                                            second: 'numeric' ,
-                                                                                            timeZoneName: 'short' };
-                                                                                            const
-                                                                                            dataHoraFormatadaString=dataHoraFormatada.toLocaleDateString('pt-BR',
-                                                                                            options); %>
-                                                                                            <%= dataHoraFormatadaString
-                                                                                                %>
-                                                                                    </p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="col-2"
-                                                                        style="max-height: 100%; text-align: center;">
-                                                                        <div style="position: relative; bottom: -80%;">
-                                                                            <a href="/apagarNoticia/<%=noticia.idNoticia%>"
-                                                                                style="text-decoration: none;"
-                                                                                data-userid="<%=nivel%>"
-                                                                                class="lixeiraIcon">
-                                                                                <i
-                                                                                    class="mr-3 fa-solid fa-trash-can fa-xl"></i>
-                                                                            </a>
-                                                                            <a href="/editarNoticia/<%=noticia.idNoticia%>"
-                                                                                style="text-decoration: none;"
-                                                                                data-userid="<%=nivel%>"
-                                                                                class="editarIcon">
-                                                                                <i
-                                                                                    class="fa-solid fa-pen-to-square fa-xl"></i>
-                                                                            </a>
+                                                                                        <i class="ml-2 fa-solid fa-triangle-exclamation"
+                                                                                            style="color: #f8b90d;"></i>
+                                                                                        <%}}%>
+                                                                            </h3>
+                                                                            <p class="textoColunaEsquerda">
+                                                                                <%= noticia.resumoNoticia %>
+                                                                            </p>
+                                                                            <p class="dataHora">
+                                                                                <% const dataHoraFormatada=new
+                                                                                    Date(noticia.dataHora); const
+                                                                                    options={ year: 'numeric' ,
+                                                                                    month: 'long' , day: 'numeric' ,
+                                                                                    hour: 'numeric' , minute: 'numeric'
+                                                                                    , second: 'numeric' ,
+                                                                                    timeZoneName: 'short' }; const
+                                                                                    dataHoraFormatadaString=dataHoraFormatada.toLocaleDateString('pt-BR',
+                                                                                    options); %>
+                                                                                    <%= dataHoraFormatadaString %>
+                                                                            </p>
                                                                         </div>
                                                                     </div>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-2"
+                                                                style="max-height: 100%; text-align: center;">
+                                                                <div style="position: relative; bottom: -80%;">
+                                                                    <a href="/apagarNoticia/<%=noticia.idNoticia%>"
+                                                                        style="text-decoration: none;"
+                                                                        data-userid="<%=nivel%>" class="lixeiraIcon">
+                                                                        <i class="mr-3 fa-solid fa-trash-can fa-xl"></i>
+                                                                    </a>
+                                                                    <a href="/editarNoticia/<%=noticia.idNoticia%>"
+                                                                        style="text-decoration: none;"
+                                                                        data-userid="<%=nivel%>" class="editarIcon">
+                                                                        <i class="fa-solid fa-pen-to-square fa-xl"></i>
+                                                                    </a>
                                                                 </div>
+                                                            </div>
+                                                        </div>
 
-                                                                <div>
-                                                                    <hr class="mb-4 mt-4" width="100%"
-                                                                        style="margin-left: 0px;">
-                                                                </div>
-                                                                <%})%>
-                                                                    <%}%>
-                                    </div>
-                                    <%}%>
+                                                        <div>
+                                                            <hr class="mb-4 mt-4" width="100%"
+                                                                style="margin-left: 0px;">
+                                                        </div>
+                                                        <% }) %>
 
-                    </div>
+
+
+
+                                                            <%if (dadosNoticia.length> 9) { %>
+                                                                <% dadosNoticia.slice(9,
+                                                                    20).reverse().forEach(function(noticia, index) { %>
+                                                                    <div class="row" style="margin-left: 0px;">
+                                                                        <div class="col-4" id="fotoLink"
+                                                                            style="margin-left: -13px;">
+                                                                            <a href="/verNoticia/<%= noticia.idNoticia %>"
+                                                                                class="clicarNoticias">
+                                                                                <div id="imagemNoticiaMenu">
+                                                                                    <img class="imagensColunaEsq"
+                                                                                        src="imagens/<%= noticia.imagensNoticia %>"
+                                                                                        id="imagemNoticiaMenu2">
+                                                                                </div>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="col-6" id="textoLink">
+                                                                            <a href="/verNoticia/<%= noticia.idNoticia %>"
+                                                                                class="clicarNoticias">
+                                                                                <div class="col-lg-12">
+                                                                                    <div id="textoNoticia-row1">
+                                                                                        <h3 class="tituloNoticia">
+                                                                                            <%= noticia.tituloNoticia %>
+                                                                                                <%if (nivel==1 ) { if
+                                                                                                    (noticia.revisao==2){
+                                                                                                    %>
+
+                                                                                                    <i class="ml-2 fa-solid fa-triangle-exclamation"
+                                                                                                        style="color: #f8b90d;"></i>
+                                                                                                    <%}}%>
+                                                                                        </h3>
+                                                                                        <p class="textoColunaEsquerda">
+                                                                                            <%= noticia.resumoNoticia %>
+                                                                                        </p>
+                                                                                        <p class="dataHora">
+                                                                                            <% const
+                                                                                                dataHoraFormatada=new
+                                                                                                Date(noticia.dataHora);
+                                                                                                const options={
+                                                                                                year: 'numeric' ,
+                                                                                                month: 'long' ,
+                                                                                                day: 'numeric' ,
+                                                                                                hour: 'numeric' ,
+                                                                                                minute: 'numeric' ,
+                                                                                                second: 'numeric' ,
+                                                                                                timeZoneName: 'short' };
+                                                                                                const
+                                                                                                dataHoraFormatadaString=dataHoraFormatada.toLocaleDateString('pt-BR',
+                                                                                                options); %>
+                                                                                                <%= dataHoraFormatadaString
+                                                                                                    %>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="col-2"
+                                                                            style="max-height: 100%; text-align: center;">
+                                                                            <div
+                                                                                style="position: relative; bottom: -80%;">
+                                                                                <a href="/apagarNoticia/<%=noticia.idNoticia%>"
+                                                                                    style="text-decoration: none;"
+                                                                                    data-userid="<%=nivel%>"
+                                                                                    class="lixeiraIcon">
+                                                                                    <i
+                                                                                        class="mr-3 fa-solid fa-trash-can fa-xl"></i>
+                                                                                </a>
+                                                                                <a href="/editarNoticia/<%=noticia.idNoticia%>"
+                                                                                    style="text-decoration: none;"
+                                                                                    data-userid="<%=nivel%>"
+                                                                                    class="editarIcon">
+                                                                                    <i
+                                                                                        class="fa-solid fa-pen-to-square fa-xl"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <hr class="mb-4 mt-4" width="100%"
+                                                                            style="margin-left: 0px;">
+                                                                    </div>
+                                                                    <%})%>
+                                                                        <%}%>
+                                        </div>
+                                        <%}%>
+
+                        </div>
+            </div>
         </div>
-    </div>
-    <script>
-        function ocultarIcones(userId) {
-            var lixeiraIcons = document.querySelectorAll('.lixeiraIcon');
-            var editarIcons = document.querySelectorAll('.editarIcon');
+        <script>
+            function ocultarIcones(userId) {
+                var lixeiraIcons = document.querySelectorAll('.lixeiraIcon');
+                var editarIcons = document.querySelectorAll('.editarIcon');
 
-            for (var i = 0; i < lixeiraIcons.length; i++) {
-                var lixeiraIconLink = lixeiraIcons[i];
-                var editarIconLink = editarIcons[i];
+                for (var i = 0; i < lixeiraIcons.length; i++) {
+                    var lixeiraIconLink = lixeiraIcons[i];
+                    var editarIconLink = editarIcons[i];
 
-                // Acessa o valor do atributo data-userid
-                var iconUserId = lixeiraIconLink.getAttribute('data-userid');
+                    // Acessa o valor do atributo data-userid
+                    var iconUserId = lixeiraIconLink.getAttribute('data-userid');
 
-                if (iconUserId !== "1") {
-                    lixeiraIconLink.style.display = 'none';
-                    editarIconLink.style.display = 'none';
+                    if (iconUserId !== "1") {
+                        lixeiraIconLink.style.display = 'none';
+                        editarIconLink.style.display = 'none';
+                    }
                 }
             }
-        }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            ocultarIcones( <%= nivel %> );
-        });
-    </script>
-    <% if (dadosNoticia.length> 5) {%>
-        <div class="row">
-            <div class="col-lg-3 pt-1 w-5" id="row2-noticias" style="position: fixed; width: 8000px;">
-                <div id="row2-background" class="border ml-5 mt-2">
-                    <h5 style="font-size: 18px;font-family: Arial, Helvetica, sans-serif;">Novidades</h5>
-                    <hr class="hr-direita">
+            document.addEventListener('DOMContentLoaded', function () {
+                ocultarIcones( <%= nivel %> );
+            });
+        </script>
+        <% if (dadosNoticia.length> 5) {%>
+            <div class="row">
+                <div class="col-lg-3 pt-1 w-5" id="row2-noticias" style="position: fixed; width: 8000px;">
+                    <div id="row2-background" class="border ml-5 mt-2">
+                        <h5 style="font-size: 18px;font-family: Arial, Helvetica, sans-serif;">Novidades</h5>
+                        <hr class="hr-direita">
 
-                    <% var endIndex=dadosNoticia.length> 1 ? dadosNoticia.length - 5 : dadosNoticia.length;
-                        var tamanhoTotal=dadosNoticia.length;
-                        var comecoIndex = endIndex - 4;
-                        while (comecoIndex < 0) { comecoIndex++; } %>
-                            <% if (tamanhoTotal> 4) {%>
-                                <% dadosNoticia.slice(comecoIndex, endIndex).reverse().forEach(function(noticia) { %>
+                        <% var endIndex=dadosNoticia.length> 1 ? dadosNoticia.length - 5 : dadosNoticia.length;
+                            var tamanhoTotal=dadosNoticia.length;
+                            var comecoIndex = endIndex - 4;
+                            while (comecoIndex < 0) { comecoIndex++; } %>
+                                <% if (tamanhoTotal> 4) {%>
+                                    <% dadosNoticia.slice(comecoIndex, endIndex).reverse().forEach(function(noticia) {
+                                        %>
 
-                                    <a href="/verNoticia/<%= noticia.idNoticia %>" id="clicarNoticias">
-                                        <div style="display: flex;">
-                                            <div style="display: inline-block;">
-                                                <div class="textoColunaDireita">
-                                                    <% const tituloCompleto=noticia.tituloNoticia; %>
-                                                        <% const limiteCaracteres=63; %>
+                                        <a href="/verNoticia/<%= noticia.idNoticia %>" id="clicarNoticias">
+                                            <div style="display: flex;">
+                                                <div style="display: inline-block;">
+                                                    <div class="textoColunaDireita">
+                                                        <% const tituloCompleto=noticia.tituloNoticia; %>
+                                                            <% const limiteCaracteres=63; %>
 
-                                                            <% if (tituloCompleto.length <=limiteCaracteres) { %>
-                                                                <%= tituloCompleto %>
-                                                                    <% } else { %>
-                                                                        <%= tituloCompleto.slice(0, limiteCaracteres)
-                                                                            + '...' %>
-                                                                            <% } %>
+                                                                <% if (tituloCompleto.length <=limiteCaracteres) { %>
+                                                                    <%= tituloCompleto %>
+                                                                        <% } else { %>
+                                                                            <%= tituloCompleto.slice(0,
+                                                                                limiteCaracteres) + '...' %>
+                                                                                <% } %>
+                                                    </div>
+                                                    <p class="textoColunaDireita" id="dataHoraColDireita">
+                                                        <% const dataHoraFormatada=new Date(noticia.dataHora); const
+                                                            options={ year: 'numeric' , month: 'long' , day: 'numeric' ,
+                                                            hour: 'numeric' , minute: 'numeric' , second: 'numeric' ,
+                                                            timeZoneName: 'short' }; const
+                                                            dataHoraFormatadaString=dataHoraFormatada.toLocaleDateString('pt-BR',
+                                                            options); %>
+                                                            <%= dataHoraFormatadaString %>
+                                                    </p>
                                                 </div>
-                                                <p class="textoColunaDireita" id="dataHoraColDireita">
-                                                    <% const dataHoraFormatada=new Date(noticia.dataHora); const
-                                                        options={ year: 'numeric' , month: 'long' , day: 'numeric' ,
-                                                        hour: 'numeric' , minute: 'numeric' , second: 'numeric' ,
-                                                        timeZoneName: 'short' }; const
-                                                        dataHoraFormatadaString=dataHoraFormatada.toLocaleDateString('pt-BR',
-                                                        options); %>
-                                                        <%= dataHoraFormatadaString %>
-                                                </p>
-                                            </div>
-                                            <img src="imagens/<%=noticia.imagensNoticia%>" style="
+                                                <img src="imagens/<%=noticia.imagensNoticia%>" style="
                                                 display: inline-block;
                                                 width: 80px;
                                                 object-fit: cover;
@@ -328,14 +338,14 @@
                                                 border-radius: 5%;
                                                 border: black solid 1px;
                                                 margin-left:8%">
-                                        </div>
-                                    </a>
-                                    <hr class="hr-direita">
+                                            </div>
+                                        </a>
+                                        <hr class="hr-direita">
 
-                                    <% }) %>
-                                        <%}%>
+                                        <% }) %>
+                                            <%}%>
+                    </div>
                 </div>
             </div>
-        </div>
-        <%}%>
+            <%}%>
 </body>

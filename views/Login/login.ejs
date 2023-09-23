@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title> Formulário </title>
+    <title> Login </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%- include('../head'); %>
 
@@ -15,10 +15,10 @@
                 <section class="mt-5">
                     <div class="container-fluid h-custom">
                         <div class="row d-flex justify-content-center align-items-center h-100">
-                            <div class="col-md-9 col-lg-6 col-xl-5 mt-5">
-                                <img src="imagens/GEinicio.png" width="800px" alt="Sample image">
+                            <div class="col-lg-6 mt-5">
+                                <img src="imagens/GEinicio.png" width="95%" alt="Sample image">
                             </div>
-                            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                            <div class="col-lg-4 ml-5">
                                 <div class="text-center mb-5" id="login-titulo">
                                     <h3>Faça seu Login</h3>
                                 </div>
@@ -37,17 +37,25 @@
                                             placeholder="Digite sua senha" name="senha" />
                                         <label class="form-label" for="form3Example4">Senha</label>
                                     </div>
-                                    <% if(mensagem !="1" ) {%>
+                                    <% if(mensagem =="Cadastro feito com sucesso" ) {%>
                                         <div style="display: flex;">
-                                            <i class="mt-1 mr-2 fa-solid fa-triangle-exclamation" style="color: red;"></i>
-                                            <p style="color: red;">
+                                            <i class="mt-1 mr-2 fa-solid fa-check" style="color: green; font-weight: bold;"></i>
+                                            <p style="color: green;">
             
                                                 <%=mensagem%>
             
                                             </p>
                                         </div>
-                                        <%}%>
-
+                                        <%}else if(mensagem !="1" ){ %>
+                                            <div style="display: flex;">
+                                                <i class="mt-1 mr-2 fa-solid fa-triangle-exclamation" style="color: red;"></i>
+                                                <p style="color: red;">
+                
+                                                    <%=mensagem%>
+                
+                                                </p>
+                                            </div>
+                                            <%}%>
                                     <div class="text-center text-lg-start pt-2">
                                         <button type="submit  " class="btn btn-primary btn-lg"
                                             style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>

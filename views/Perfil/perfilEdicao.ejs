@@ -1,17 +1,17 @@
 <head>
     <%- include('../head'); %>
-
-        <%- include('../Navegacao/navegacao'); %>
+        <title>Editar Perfil</title>
 </head>
 
 <body class="mt-4">
-    <div class="row" style="height: 100%; max-width: 100%; ">
-        <form action="/edicaoPerfil/<%=id%>" method="POST" style="width: 70%;" enctype="multipart/form-data">
-            <div class="col-lg-1">
-            </div>
+    <%- include('../Navegacao/navegacao'); %>
+        <div class="row" style="height: 100%; max-width: 100%; ">
+            <form action="/edicaoPerfil/<%=id%>" method="POST" style="width: 70%;" enctype="multipart/form-data">
+                <div class="col-lg-1">
+                </div>
 
-            <div class="col-3" style="height: 100%;padding: 0px; position: absolute; margin-left: 8%;">
-                <div style="background-color: #eb5e00;
+                <div class="col-3" style="height: 100%;padding: 0px; position: absolute; margin-left: 8%;">
+                    <div style="background-color: #eb5e00;
             height: 100%;
             width: 75%;
             position: absolute;
@@ -19,123 +19,126 @@
             top: 50%;
             transform: translate(-50%, -50%);">
 
+                    </div>
+
+                    <input type="file" name="imagem" id="editarInputImg" style="position: absolute;">
+                    <label for="editarInputImg" style="width: 100%;">
+                        <img src="/imagens/<%=dadosUsuario.fotoPerfil%>" class="editarImgPerfil" style="height: 55%;">
+                        <i id="pincel" class="fa-solid fa-pencil fa-2xl" style="color: #ffffff;"></i>
+                    </label>
                 </div>
 
-                <input type="file" name="imagem" id="editarInputImg" style="position: absolute;">
-                <label for="editarInputImg" style="width: 100%;">
-                    <img src="/imagens/<%=dadosUsuario.fotoPerfil%>" class="editarImgPerfil" style="height: 55%;">
-                    <i id="pincel" class="fa-solid fa-pencil fa-2xl" style="color: #ffffff;"></i>
-                </label>
-            </div>
+                <div class="col-lg-6" style="position: absolute; left:40%">
 
-            <div class="col-lg-6" style="position: absolute; left:40%">
+                    <h2 style="font-size: 25px; margin-top: 10px;">Sobre Mim</h2>
+                    <div id="sobreMim">
 
-                <h2 style="font-size: 25px; margin-top: 10px;">Sobre Mim</h2>
-                <div id="sobreMim">
+                        <textarea name="sobreMimInput" id="editaSobreMim" rows="4" cols="80%" class="border mt-4"
+                            placeholder="Escreva sobre você"><%=dadosUsuario.sobreMim%></textarea>
+                    </div>
+                    <h2 style="font-size: 25px;">Formas de Contato</h2>
+                    <div class="mt-4 formasContato">
+                        <div class="div-1">
+                            <i class="logoContato fab fa-instagram"></i>
+                            <input type="text" name="instagramInput" id="instagramInput" class="border ml-3 contato2"
+                                placeholder="Informe seu instagram" value="<%=dadosUsuario.insta%>" maxlength="100">
 
-                    <textarea name="sobreMimInput" id="editaSobreMim" rows="4" cols="80%" class="border mt-4"
-                        placeholder="Escreva sobre você"><%=dadosUsuario.sobreMim%></textarea>
+                            <script>
+                                const insta = document.getElementById('instagramInput');
+
+                                insta.addEventListener('input', function () {
+                                    const limiteCaracteres = parseInt(insta.getAttribute('maxlength'));
+                                    const textoDigitado = insta.value;
+
+                                    if (textoDigitado.length > limiteCaracteres) {
+                                        insta.value = textoDigitado.slice(0, limiteCaracteres);
+                                    }
+                                });
+                            </script>
+
+                        </div>
+                        <br>
+                        <div class="div-1">
+                            <i class="logoContato fab fa-twitter"></i>
+                            <input type="text" name="twitterInput" id="twitterInput" class="border ml-3 contato2"
+                                placeholder="Informe seu twitter" value="<%=dadosUsuario.twitter%>" maxlength="100">
+
+                            <script>
+                                const twitter = document.getElementById('twitterInput');
+
+                                twitter.addEventListener('input', function () {
+                                    const limiteCaracteres = parseInt(twitter.getAttribute('maxlength'));
+                                    const textoDigitado = twitter.value;
+
+                                    if (textoDigitado.length > limiteCaracteres) {
+                                        twitter.value = textoDigitado.slice(0, limiteCaracteres);
+                                    }
+                                });
+                            </script>
+                        </div>
+                        <br>
+                        <div class="div-1">
+                            <i class="logoContato mb-4 fa-solid fa-envelope"></i>
+                            <input type="text" name="emailInput" class="border ml-3 contato2"
+                                value="<%=dadosUsuario.emailContato%>" id="emailInput"
+                                placeholder="Informe seu email de contato (não altera email de cadastro)"
+                                maxlength="100">
+
+                            <script>
+                                const email = document.getElementById('emailInput');
+
+                                email.addEventListener('input', function () {
+                                    const limiteCaracteres = parseInt(email.getAttribute('maxlength'));
+                                    const textoDigitado = email.value;
+
+                                    if (textoDigitado.length > limiteCaracteres) {
+                                        email.value = textoDigitado.slice(0, limiteCaracteres);
+                                    }
+                                });
+                            </script>
+
+                        </div>
+
+                        <%if (nivel==3) {%>
+                            <div class="dadosPessoais">
+                                <h2 style="font-size: 25px; margin-top: 35px;">Dados Pessoais</h2>
+
+                                <select class="mt-3 form-control" name="classificacao" id="">
+                                    <option value="1° ano - Manhã">1° ano - Manhã</option>
+                                    <option value="1° ano - Tarde">1° ano - Tarde</option>
+                                    <option value="2° ano - Manhã">2° ano - Manhã</option>
+                                    <option value="2° ano - Tarde">2° ano - Tarde</option>2
+                                    <option value="3° ano - Manhã">3° ano - Manhã</option>
+                                    <option value="3° ano - Tarde">3° ano - Tarde</option>
+                                    <option value="4° ano - Manhã">4° ano - Manhã</option>
+                                    <option value="4° ano - Tarde">4° ano - Tarde</option>
+                                    <option value="Professor">Professor</option>
+                                </select>
+                            </div>
+                            <%}%>
+                                <input type="text" name="nomeUsu" class="border mt-3 contato2"
+                                    placeholder="Digite seu nome" value="<%=dadosUsuario.nome%>" maxlength="100"
+                                    id="nomeUsu">
+
+                                <script>
+                                    const nome = document.getElementById('nomeUsu');
+
+                                    nome.addEventListener('input', function () {
+                                        const limiteCaracteres = parseInt(nome.getAttribute('maxlength'));
+                                        const textoDigitado = nome.value;
+
+                                        if (textoDigitado.length > limiteCaracteres) {
+                                            nome.value = textoDigitado.slice(0, limiteCaracteres);
+                                        }
+                                    });
+                                </script>
+
+                                <hr style="background-color: black; height: 1px;">
+
+                                <button type="submit" id="enviarEdicaoPerfil"
+                                    class="btn btn-primary btn-primary">Salvar</button>
+                    </div>
                 </div>
-                <h2 style="font-size: 25px;">Formas de Contato</h2>
-                <div class="mt-4 formasContato">
-                    <div class="div-1">
-                        <i class="logoContato fab fa-instagram"></i>
-                        <input type="text" name="instagramInput" id="instagramInput" class="border ml-3 contato2"
-                            placeholder="Informe seu instagram" value="<%=dadosUsuario.insta%>" maxlength="100">
-
-                        <script>
-                            const insta = document.getElementById('instagramInput');
-
-                            insta.addEventListener('input', function () {
-                                const limiteCaracteres = parseInt(insta.getAttribute('maxlength'));
-                                const textoDigitado = insta.value;
-
-                                if (textoDigitado.length > limiteCaracteres) {
-                                    insta.value = textoDigitado.slice(0, limiteCaracteres);
-                                }
-                            });
-                        </script>
-
-                    </div>
-                    <br>
-                    <div class="div-1">
-                        <i class="logoContato fab fa-twitter"></i>
-                        <input type="text" name="twitterInput" id="twitterInput" class="border ml-3 contato2"
-                            placeholder="Informe seu twitter" value="<%=dadosUsuario.twitter%>" maxlength="100">
-
-                        <script>
-                            const twitter = document.getElementById('twitterInput');
-
-                            twitter.addEventListener('input', function () {
-                                const limiteCaracteres = parseInt(twitter.getAttribute('maxlength'));
-                                const textoDigitado = twitter.value;
-
-                                if (textoDigitado.length > limiteCaracteres) {
-                                    twitter.value = textoDigitado.slice(0, limiteCaracteres);
-                                }
-                            });
-                        </script>
-                    </div>
-                    <br>
-                    <div class="div-1">
-                        <i class="logoContato mb-4 fa-solid fa-envelope"></i>
-                        <input type="text" name="emailInput" class="border ml-3 contato2"
-                            value="<%=dadosUsuario.emailContato%>" id="emailInput"
-                            placeholder="Informe seu email de contato (não altera email de cadastro)" maxlength="100">
-
-                        <script>
-                            const email = document.getElementById('emailInput');
-
-                            email.addEventListener('input', function () {
-                                const limiteCaracteres = parseInt(email.getAttribute('maxlength'));
-                                const textoDigitado = email.value;
-
-                                if (textoDigitado.length > limiteCaracteres) {
-                                    email.value = textoDigitado.slice(0, limiteCaracteres);
-                                }
-                            });
-                        </script>
-
-                    </div>
-
-                    <%if (nivel == 3) {%>
-                    <div class="dadosPessoais">
-                        <h2 style="font-size: 25px; margin-top: 35px;">Dados Pessoais</h2>
-
-                        <select class="mt-3 form-control" name="classificacao" id="">
-                            <option value="1° ano - Manhã">1° ano - Manhã</option>
-                            <option value="1° ano - Tarde">1° ano - Tarde</option>
-                            <option value="2° ano - Manhã">2° ano - Manhã</option>
-                            <option value="2° ano - Tarde">2° ano - Tarde</option>2
-                            <option value="3° ano - Manhã">3° ano - Manhã</option>
-                            <option value="3° ano - Tarde">3° ano - Tarde</option>
-                            <option value="4° ano - Manhã">4° ano - Manhã</option>
-                            <option value="4° ano - Tarde">4° ano - Tarde</option>
-                            <option value="Professor">Professor</option>
-                        </select>
-                    </div>
-                    <%}%>
-                    <input type="text" name="nomeUsu" class="border mt-3 contato2" placeholder="Digite seu nome"
-                        value="<%=dadosUsuario.nome%>" maxlength="100" id="nomeUsu">
-
-                    <script>
-                        const nome = document.getElementById('nomeUsu');
-
-                        nome.addEventListener('input', function () {
-                            const limiteCaracteres = parseInt(nome.getAttribute('maxlength'));
-                            const textoDigitado = nome.value;
-
-                            if (textoDigitado.length > limiteCaracteres) {
-                                nome.value = textoDigitado.slice(0, limiteCaracteres);
-                            }
-                        });
-                    </script>
-
-                    <hr style="background-color: black; height: 1px;">
-
-                    <button type="submit" id="enviarEdicaoPerfil" class="btn btn-primary btn-primary">Salvar</button>
-                </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
 </body>

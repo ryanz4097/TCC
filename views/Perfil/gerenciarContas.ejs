@@ -1,42 +1,43 @@
 <head>
     <%- include('../head'); %>
-
-        <%- include('../Navegacao/navegacao'); %>
+        <title>Criar Contar</title>
 </head>
 
 <body>
-    <div class="container mt-4" id="container-novosUs">
+    <%- include('../Navegacao/navegacao'); %>
+        <div class="container mt-4" id="container-novosUs">
 
-        <div style="border: 1px solid; padding: 3%; border-top-left-radius: 15px; border-top-right-radius: 15px;">
-            <div>
-                <h2 class="mt-2" style="font-family: gagalin; ">Cadastro de novos usuários</h2>
-            </div>
-        </div>
-
-        <div style="border: 1px solid; padding: 5%; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; border-top: none;">
-            <div class="">
+            <div style="border: 1px solid; padding: 3%; border-top-left-radius: 15px; border-top-right-radius: 15px;">
                 <div>
-                    <form action="/cadastrarNovoUs" method="post" enctype="multipart/form-data">
-                        <label for="nomeUsNovo">Nome do Usuário:</label>
-                        <input class="camposNovoUs form-control mb-5" id="nomeUsNovo" type="text" name="nome"
-                            placeholder="Digite o nome do usuário" required>
+                    <h2 class="mt-2" style="font-family: gagalin; ">Cadastro de novos usuários</h2>
+                </div>
+            </div>
 
-                        <label class="mt-2" for="emailUsNovo">Email do Usuário:</label>
-                        <input class="camposNovoUs form-control mb-5" id="emailUsNovo" type="email" name="email"
-                            placeholder="Digite o email do usuário" required>
+            <div
+                style="border: 1px solid; padding: 5%; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; border-top: none;">
+                <div class="">
+                    <div>
+                        <form action="/cadastrarNovoUs" method="post" enctype="multipart/form-data">
+                            <label for="nomeUsNovo">Nome do Usuário:</label>
+                            <input class="camposNovoUs form-control mb-5" id="nomeUsNovo" type="text" name="nome"
+                                placeholder="Digite o nome do usuário" required>
 
-                        <div class="form-group">
-                            <label class="mt-2" for="tipoConta">Nível da Conta:</label>
-                            <select class="form-control" id="nivelConta" aria-label="Default select example"
-                                name="nivel" required>
-                                <option value="1" name="administrador">Administrador</option>
-                                <option value="2" name="supervisor">Supervisor</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-4">Registrar</button>
-                    </form>
+                            <label class="mt-2" for="emailUsNovo">Email do Usuário:</label>
+                            <input class="camposNovoUs form-control mb-5" id="emailUsNovo" type="email" name="email"
+                                placeholder="Digite o email do usuário" required>
+
+                            <div class="form-group">
+                                <label class="mt-2" for="tipoConta">Nível da Conta:</label>
+                                <select class="form-control" id="nivelConta" aria-label="Default select example"
+                                    name="nivel" required>
+                                    <option value="1" name="administrador">Administrador</option>
+                                    <option value="2" name="supervisor">Supervisor</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-4">Registrar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </body>

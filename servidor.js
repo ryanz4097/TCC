@@ -77,7 +77,7 @@ app.post('/cadastro', function (req, res) {
                             if (err) throw err;
                             console.log("Numero de registros inseridos: " + result.affectedRows);
                             req.session.sucesso = "Cadastro realizado com sucesso"
-                            res.redirect('/login');
+                            res.render('Login/login.ejs', { mensagem: "Cadastro feito com sucesso" });
                         });
                     });
                 } else {
@@ -106,6 +106,7 @@ app.post('/login', function (req, res) {
     req.session.mensagemSenha = "1"
     var sql = "SELECT * FROM usuarios where email = ?";
     con.query(sql, [email], function (err, result) {
+        dadosUsuario = result[0];
         if (err) throw err;
         if (result.length) {
             bcrypt.compare(senha, result[0]['senha'], function (err, resultado) {
@@ -116,7 +117,12 @@ app.post('/login', function (req, res) {
                     req.session.foto = result[0]['fotoPerfil'];
                     req.session.usId = result[0]['idUsuario'];
                     req.session.nivelUs = result[0]['nivel'];
-                    res.redirect('/menu')
+                    if (dadosUsuario.sobreMim == null) {
+                        res.redirect('/perfil')
+                    }
+                    else {
+                        res.redirect('/menu')
+                    }
                 }
                 else if (senha != result[0]['senha']) {
                     res.render('Login/login.ejs', { mensagem: "Senha inválida" })
@@ -185,12 +191,13 @@ app.post('/chat', function (req, res) {
         var amigoid = req.body['id']
         var nivel = req.session.nivelUs
         var fotoUserLogado = req.session.foto
-        var sql = "SELECT nome FROM usuarios WHERE idUsuario = ?"
+        var sql = "SELECT * FROM usuarios WHERE idUsuario = ?"
 
         con.query(sql, [amigoid], function (err, result) {
             if (err) throw err;
-            const nomeAmigo = result[0];
-            res.render('Chat/chat.ejs', { imagem: imagem, usuario: usuario, usuarioid: usuarioid, amigoid: amigoid, nivel, fotoUserLogado, nomeAmigo })
+            const dadosAmigo = result[0];
+            console.log(dadosAmigo);
+            res.render('Chat/chat.ejs', { imagem: imagem, usuario: usuario, usuarioid: usuarioid, amigoid: amigoid, nivel, fotoUserLogado, dadosAmigo })
         });
     }
     else {
@@ -668,12 +675,12 @@ app.get("/exibirAvaliacoes", function (req, res) {
                     con.query(sql3, function (err, result) {
                         if (err) throw err;
                         const dadosAvaliacoes = result;
-                        con.query(sqlAreas, function(err, resultados){
+                        con.query(sqlAreas, function (err, resultados) {
                             if (err) throw err;
                             var areas = resultados;
                             console.log(areas);
-                            res.render('Avaliacao/Sugestoes.ejs', {areas, dadosUsuario, id: userId, dadosAvaliacoes, mediaAvaliacoesPorArea, fotoUserLogado, nivel });
-                        }); 
+                            res.render('Avaliacao/Sugestoes.ejs', { areas, dadosUsuario, id: userId, dadosAvaliacoes, mediaAvaliacoesPorArea, fotoUserLogado, nivel });
+                        });
                     });
                 });
             });

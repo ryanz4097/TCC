@@ -1,83 +1,84 @@
 <head>
   <%- include('../head'); %>
+    <title>Perfil</title>
 
-    <%- include('../Navegacao/navegacao'); %>
 </head>
 
 <body class="mt-4" style="max-width: 100%; max-height: 100%;">
-  <div class="row" style="max-width: 100%;height: 100%;">
-    <div class="col-lg-1">
-
-    </div>
-    <div class="col-lg-3" style=" padding: 0px;">
-      <div id="colEsqPerfil">
+  <%- include('../Navegacao/navegacao'); %>
+    <div class="row" style="max-width: 100%;height: 100%;">
+      <div class="col-lg-1">
 
       </div>
-      <div style="text-align: center;">
-        <img src="/imagens/<%=dadosUsuario.fotoPerfil%>" id="imgPerfil">
-      </div>
-      <div style="width: 100%; text-align: center;">
-        <p id="nomePerfil">
+      <div class="col-lg-3" style=" padding: 0px;">
+        <div id="colEsqPerfil">
 
-          <%=dadosUsuario.nome%>
+        </div>
+        <div style="text-align: center;">
+          <img src="/imagens/<%=dadosUsuario.fotoPerfil%>" id="imgPerfil">
+        </div>
+        <div style="width: 100%; text-align: center;">
+          <p id="nomePerfil">
 
-        </p>
-      </div>
-    </div>
-    <div class="col-lg-6" id="textoDireita">
-      <hr style="background-color: black; height: 1px;">
-      <h2 id="sobreMimPerfil">Sobre Mim</h2>
-      <div id="sobreMim">
-        <p class="mt-4" style="word-break: break-all;">
-          <%=dadosUsuario.sobreMim%>
-        </p>
-      </div>
-      <h2 style="font-size: 25px; margin-top: 50px; margin-bottom: 60px; font-family: gagalin;">Formas de Contato</h2>
-      <div class="mt-4 formasContato">
-        <div class="div-1">
-          <i class="logoContato fab fa-instagram"></i>
-          <p class="ml-3 contato">
-            <%=dadosUsuario.insta%>
+            <%=dadosUsuario.nome%>
+
           </p>
         </div>
-        <br>
-        <div class="div-1">
-          <i class="logoContato fab fa-twitter"></i>
-          <p class="ml-3 contato">
-            <%=dadosUsuario.twitter%>
-          </p>
-        </div>
-        <br>
-        <div class="div-1">
-          <i class="logoContato mb-4 fa-solid fa-envelope fa-2xs" style="margin-top: 17px;"></i>
-          <p class="ml-3 contato">
-            <%=dadosUsuario.emailContato%>
-          </p>
-        </div>
+      </div>
+      <div class="col-lg-6" id="textoDireita">
         <hr style="background-color: black; height: 1px;">
-
-        <%if (dadosUsuario.idUsuario==id){%>
-          <div style="display: flex;">
-            <a href="/editaPerfil/<%=id%>" class="mr-4">
-              <p>Modificar perfil</p>
-            </a>
-            <a href="/esqueciSenha/<%=id%>">
-              <p>Mudar senha</p>
-            </a>
+        <h2 id="sobreMimPerfil">Sobre Mim</h2>
+        <div id="sobreMim">
+          <p class="mt-4" style="word-break: break-all;">
+            <%=dadosUsuario.sobreMim%>
+          </p>
+        </div>
+        <h2 style="font-size: 25px; margin-top: 50px; margin-bottom: 60px; font-family: gagalin;">Formas de Contato</h2>
+        <div class="mt-4 formasContato">
+          <div class="div-1">
+            <i class="logoContato fab fa-instagram"></i>
+            <p class="ml-3 contato">
+              <%=dadosUsuario.insta%>
+            </p>
           </div>
-          <%}%>
+          <br>
+          <div class="div-1">
+            <i class="logoContato fab fa-twitter"></i>
+            <p class="ml-3 contato">
+              <%=dadosUsuario.twitter%>
+            </p>
+          </div>
+          <br>
+          <div class="div-1">
+            <i class="logoContato mb-4 fa-solid fa-envelope fa-2xs" style="margin-top: 17px;"></i>
+            <p class="ml-3 contato">
+              <%=dadosUsuario.emailContato%>
+            </p>
+          </div>
+          <hr style="background-color: black; height: 1px;">
 
-            <% if(mensagem !="1" ) {%>
-              <div style="display: flex;">
-                <i class="fa-solid fa-circle-check" style="color: #04c73e;"></i>
-                <p style="color: greend;">
+          <%if (dadosUsuario.idUsuario==id){%>
+            <div style="display: flex;">
+              <a href="/editaPerfil/<%=id%>" class="mr-4">
+                <p>Modificar perfil</p>
+              </a>
+              <a href="/esqueciSenha/<%=id%>">
+                <p>Mudar senha</p>
+              </a>
+            </div>
+            <%}%>
 
-                  <%=mensagem%>
+              <% if(mensagem !="1" ) {%>
+                <div style="display: flex;">
+                  <i class="fa-solid fa-circle-check" style="color: #04c73e;"></i>
+                  <p style="color: greend;">
 
-                </p>
-              </div>
-              <%}%>
+                    <%=mensagem%>
+
+                  </p>
+                </div>
+                <%}%>
+        </div>
       </div>
     </div>
-  </div>
 </body>
