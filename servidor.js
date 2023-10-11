@@ -129,8 +129,9 @@ app.post('/login', function (req, res) {
                 }
                 else { res.render('Login/login.ejs', { mensagem: null }) }
             });
+        } else {
+            res.render('Login/login.ejs', { mensagem: "E-mail não encontrado" })
         }
-        else { res.render('Login/login.ejs', { mensagem: "E-mail não encontrado" }) }
     });
 });
 
@@ -183,6 +184,7 @@ app.get('/menu', function (req, res) {
 /*-----------------CHAT-----------------*/
 
 app.post('/chat', function (req, res) {
+    console.log("oi")
     if (req.session.logado) {
         var usuario = req.session.username
         var usuarioid = req.session.usid
@@ -217,25 +219,37 @@ app.get('/chatComum', function (req, res) {
         var amigoid = 1
         var nivel = req.session.nivelUs
         var fotoUserLogado = req.session.foto
-        console.log(req.session.nivel)
         var sql = "SELECT nome FROM usuarios WHERE idUsuario = ?"
         var quantidadeUsers = "SELECT * FROM usuarios WHERE nivel != ?"
 
         con.query(quantidadeUsers, nivel, function (err, result2, fields) {
             if (err) throw err;
             dadosUsuarios = result2;
-            console.log(dadosUsuarios);
+            console.log(dadosUsuarios.length)
             if (dadosUsuarios.length > 1) {
                 con.query(sql, [perPage, page], function (err, result, fields) {
                     if (err) throw err;
                     pages = Math.ceil(result2[0]['numero'] / perPage)
-                    res.render('Chat/usuarios.ejs', { dadosUsuarios, usuario: usuario, usuarioid: usuarioid, current: page + 1, pages: pages, nivel, fotoUserLogado })
+                    var sql5 = "SELECT * FROM usuarios WHERE idUsuario = ?"
+
+                    con.query(sql5, [amigoid], function (err, result) {
+                        if (err) throw err;
+                        const dadosAmigo = result[0];
+                        res.render('Chat/usuarios.ejs', { dadosUsuarios, usuario: usuario, usuarioid: usuarioid, current: page + 1, pages: pages, nivel, fotoUserLogado, dadosAmigo })
+                    });
                 });
             } else {
                 con.query(sql, [amigoid], function (err, result) {
                     if (err) throw err;
                     const nomeAmigo = result;
-                    res.render('Chat/chat.ejs', { imagem: imagem, usuario: usuario, usuarioid: usuarioid, amigoid: amigoid, nivel, fotoUserLogado, nomeAmigo })
+                    var sql5 = "SELECT * FROM usuarios WHERE idUsuario = ?"
+
+                    con.query(sql5, [amigoid], function (err, result) {
+                        if (err) throw err;
+                        const dadosAmigo = result[0];
+                        console.log("5");
+                        res.render('Chat/chat.ejs', { imagem: imagem, usuario: usuario, usuarioid: usuarioid, amigoid: amigoid, nivel, fotoUserLogado, nomeAmigo, dadosAmigo })
+                    });
                 });
             }
         });
@@ -678,7 +692,6 @@ app.get("/exibirAvaliacoes", function (req, res) {
                         con.query(sqlAreas, function (err, resultados) {
                             if (err) throw err;
                             var areas = resultados;
-                            console.log(areas);
                             res.render('Avaliacao/Sugestoes.ejs', { areas, dadosUsuario, id: userId, dadosAvaliacoes, mediaAvaliacoesPorArea, fotoUserLogado, nivel });
                         });
                     });
